@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'sqlite3'
 
 require_relative "../lib/song.rb"
@@ -8,5 +10,18 @@ song = Song.new(name: "Hello", album: "25")
 puts "song name: " + song.name
 puts "song album: " + song.album
 song.save
-
-DB[:conn].execute("SELECT * FROM songs")
+song = Song.new(name: "Chandalier", album: "Sia")
+puts "song name: " + song.name
+puts "song album: " + song.album
+song.save
+song = Song.new(name: "Greatetst", album: "Sia")
+puts "song name: " + song.name
+puts "song album: " + song.album
+song.save
+songs=Song.find_by_name("Hello")
+songs.map {|row|
+  puts "find by name: id=#{row[0]} , name=#{row[1]} ,album=#{row[2]}"
+}
+DB[:conn].execute("SELECT * FROM songs").map {|row|
+  puts "id=#{row[0]} , name=#{row[1]} ,album=#{row[2]}"
+}
